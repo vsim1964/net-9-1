@@ -1,25 +1,40 @@
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink
+} from "react-router-dom";
 import './App.css';
+import HomePage from './Pages/HomePage';
+import DriftPage from './Pages/DriftPage';
+import TimeAttackPage from './Pages/TimeAttackPage';
+import ForzaPage from './Pages/ForzaPage';
 
-function App() {
+function Menu() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <nav className="menu">
+      <NavLink className={(navData) => (navData.isActive ? "menu__item-active menu__item" : 'menu__item')} to="/">Главная</NavLink>
+      <NavLink className={(navData) => (navData.isActive ? "menu__item-active menu__item" : 'menu__item')} to="/drift">Дрифт-такси</NavLink>
+      <NavLink className={(navData) => (navData.isActive ? "menu__item-active menu__item" : 'menu__item')} to="/timeattack">Forza Karting Sochi</NavLink>
+      <NavLink className={(navData) => (navData.isActive ? "menu__item-active menu__item" : 'menu__item')} to="/forza">Гонка ​​​​​​Time Attack</NavLink>
+    </nav>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <div>
+        <Menu />
+        <div className="page">
+          <Routes>
+            <Route path="/" exact element={<HomePage />} />
+            <Route path="/drift" element={<DriftPage />} />
+            <Route path="/timeattack" element={<TimeAttackPage />} />
+            <Route path="/forza" element={<ForzaPage />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
+  );
+}
